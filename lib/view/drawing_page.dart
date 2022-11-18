@@ -352,7 +352,7 @@ class _CustomAppBar extends StatelessWidget {
               icon: const Icon(Icons.menu),
             ),
             const Text(
-              'Let\'s Draw',
+              'Draga',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 19,

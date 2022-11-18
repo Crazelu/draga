@@ -316,10 +316,10 @@ class CanvasSideBar extends HookWidget {
             // add about me button or follow buttons
             const Divider(),
             Center(
-              child: GestureDetector(
-                onTap: () => _launchUrl('https://github.com/JideGuru'),
+              child: InkWell(
+                onTap: () => _launchUrl('https://github.com/Crazelu'),
                 child: const Text(
-                  'Made with 💙 by JideGuru',
+                  'Crafted with 💙 by Crazelu',
                   style: TextStyle(fontSize: 12),
                 ),
               ),
