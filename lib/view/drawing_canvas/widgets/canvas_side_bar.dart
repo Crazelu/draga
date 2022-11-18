@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dialog_manager/flutter_dialog_manager.dart';
 import 'package:flutter_drawing_board/main.dart';
 import 'package:flutter_drawing_board/view/constants.dart';
 import 'package:flutter_drawing_board/view/drawing_canvas/models/drawing_mode.dart';
@@ -296,8 +297,7 @@ class CanvasSideBar extends HookWidget {
                   child: TextButton(
                     child: const Text('Export PNG'),
                     onPressed: () async {
-                      Uint8List? pngBytes = await getBytes();
-                      if (pngBytes != null) saveFile(pngBytes, 'png');
+                       await _export(context, 'png');
                     },
                   ),
                 ),
@@ -306,8 +306,7 @@ class CanvasSideBar extends HookWidget {
                   child: TextButton(
                     child: const Text('Export JPEG'),
                     onPressed: () async {
-                      Uint8List? pngBytes = await getBytes();
-                      if (pngBytes != null) saveFile(pngBytes, 'jpeg');
+                     await _export(context, 'jpeg');
                     },
                   ),
                 ),
@@ -330,7 +329,17 @@ class CanvasSideBar extends HookWidget {
     );
   }
 
-  void saveFile(Uint8List bytes, String extension) async {
+  Future<void> _export(BuildContext context, String extension)async{
+      void dismissDialog(){
+                    DialogManager.of(context).dismissDialog();
+                     }
+                      DialogManager.of(context).showDialog(routeName:kLoadingDialogRoute);
+                      Uint8List? pngBytes = await _getBytes();
+                      if (pngBytes != null) await _saveFile(pngBytes, extension);
+                      dismissDialog();
+  }
+
+  Future<void> _saveFile(Uint8List bytes, String extension) async {
     if (kIsWeb) {
       html.AnchorElement()
         ..href = '${Uri.dataFromBytes(bytes, mimeType: 'image/$extension')}'
@@ -463,7 +472,7 @@ class CanvasSideBar extends HookWidget {
     imageRowCount.value = kDefaultPageCount;
   }
 
-  Future<Uint8List?> getBytes() async {
+  Future<Uint8List?> _getBytes() async {
     await _shrinkCanvasSize();
     RenderRepaintBoundary boundary = canvasGlobalKey.currentContext
         ?.findRenderObject() as RenderRepaintBoundary;

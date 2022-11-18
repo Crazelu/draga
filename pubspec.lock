@@ -125,6 +125,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  flutter_dialog_manager:
+    dependency: "direct main"
+    description:
+      name: flutter_dialog_manager
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+4"
   flutter_hooks:
     dependency: "direct main"
     description:
@@ -244,6 +251,13 @@ packages:
     dependency: transitive
     description:
       name: lints
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  lottie:
+    dependency: "direct main"
+    description:
+      name: lottie
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
@@ -520,4 +534,4 @@ packages:
     version: "6.1.0"
 sdks:
   dart: ">=2.18.1 <3.0.0"
-  flutter: ">=3.0.0"
+  flutter: ">=3.3.0"

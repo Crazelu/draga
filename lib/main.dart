@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dialog_manager/flutter_dialog_manager.dart';
+import 'package:flutter_drawing_board/view/constants.dart';
 import 'package:flutter_drawing_board/view/drawing_page.dart';
+import 'package:flutter_drawing_board/view/downloading_dialog.dart';
 
+final _navigatorKey = GlobalKey<NavigatorState>();
 void main() {
   runApp(const DragaApp());
 }
@@ -13,11 +17,23 @@ class DragaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Draga',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      debugShowCheckedModeBanner: false,
-      home: const DrawingPage(),
+    return DialogManager(
+      navigatorKey: _navigatorKey,
+       onGenerateDialog: (settings) {
+       
+        if (settings.name == kLoadingDialogRoute) {
+          return const DownloadingDialog();
+        }
+        return null;
+       
+      },
+      child: MaterialApp(
+        navigatorKey: _navigatorKey,
+        title: 'Draga',
+        theme: ThemeData(primarySwatch: Colors.blue),
+        debugShowCheckedModeBanner: false,
+        home: const DrawingPage(),
+      ),
     );
   }
 }
