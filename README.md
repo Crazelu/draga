@@ -1,37 +1,31 @@
-# 🎨🎨Let's Draw
-[![Twitter Follow](https://img.shields.io/twitter/follow/iamjideguru.svg?style=social)](https://twitter.com/iamjideguru)
+# Draga
 
-A simple drawing app made with Flutter
-Try out the DEMO here
-[Link to Demo](https://letsdraw.jideguru.dev/)
+Draga is a collaborative multi-canvas drawing board originally forked from [JideGuru's Let's Draw](https://github.com/JideGuru/flutter_drawing_board).
 
-<img src="assets/screenshots/ss2.png" height="400"/>
-
-## 💻 Requirements
-
-- Any Operating System (ie. MacOS X, Linux, Windows)
-- Any IDE with Flutter SDK installed (ie. IntelliJ, Android Studio, VSCode etc)
-- A little knowledge of Dart and Flutter
-
+## 🤔 Why the fork?
+Let's Draw was originally intended to be a simple one page drawing board with collaborative drawing support.
+Draga aims to be an endless canvas instead (much like Excalidraw) with more features and capabilities.
+You can find more details [here](https://github.com/JideGuru/flutter_drawing_board/pull/8).
 
 ## ✨ Features
 
-- [x] Scribble.
-- [x] Draw Shapes (Line, Polygon, Ellipse and Rectangle).
-- [x] Eraser.
+- [x] Scribble
+- [x] Draw Shapes (Line, Polygon, Ellipse and Rectangle)
+- [x] Eraser
 - [x] Undo and Redo
 - [x] Export as Image
+- [x] Multi-paged Canvas
+- [x] Panning Across Canvas
+- [ ] Collaborative Drawing
+- [ ] Text Support
+- [ ] Highlight to Group & Select
+- [ ] Move Selected Sketches
+- [ ] Export & Import Canvas Options
+- [ ] Endless Canvas
 
+## Contributions 🫱🏾‍🫲🏼
 
-## 📸 ScreenShots
+Feel free to contribute to this project.
 
-<img src="assets/screenshots/ss1.png"/>
-
-## 🤓 Author(s)
-
-**Olusegun Festus Babajide**
-[![Twitter Follow](https://img.shields.io/twitter/follow/iamjideguru.svg?style=social)](https://twitter.com/iamjideguru)
-
-## 🔖 LICENCE
-
-[Apache-2.0](https://github.com/JideGuru/FlutterEbookApp/blob/master/LICENSE)
+If you find a bug or want a feature, but don't know how to fix/implement it, please fill an [issue](https://github.com/Crazelu/draga/issues).  
+If you fixed a bug or implemented a feature, please send a [pull request](https://github.com/Crazelu/draga/pulls).
