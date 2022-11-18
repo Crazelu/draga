@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart' hide Image;
-import 'package:flutter_drawing_board/main.dart';
-import 'package:flutter_drawing_board/view/constants.dart';
-import 'package:flutter_drawing_board/view/drawing_canvas/drawing_canvas.dart';
-import 'package:flutter_drawing_board/view/drawing_canvas/models/drawing_mode.dart';
-import 'package:flutter_drawing_board/view/drawing_canvas/models/sketch.dart';
-import 'package:flutter_drawing_board/view/drawing_canvas/widgets/canvas_side_bar.dart';
+import 'package:draga/main.dart';
+import 'package:draga/view/constants.dart';
+import 'package:draga/view/drawing_canvas/drawing_canvas.dart';
+import 'package:draga/view/drawing_canvas/models/drawing_mode.dart';
+import 'package:draga/view/drawing_canvas/models/sketch.dart';
+import 'package:draga/view/drawing_canvas/widgets/canvas_side_bar.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 // ignore: depend_on_referenced_packages
 import 'package:vector_math/vector_math_64.dart' show Vector4;

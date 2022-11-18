@@ -1,10 +1,10 @@
 import 'dart:math' as math;
 import 'dart:ui';
 import 'package:flutter/material.dart' hide Image;
-import 'package:flutter_drawing_board/main.dart';
-import 'package:flutter_drawing_board/view/constants.dart';
-import 'package:flutter_drawing_board/view/drawing_canvas/models/drawing_mode.dart';
-import 'package:flutter_drawing_board/view/drawing_canvas/models/sketch.dart';
+import 'package:draga/main.dart';
+import 'package:draga/view/constants.dart';
+import 'package:draga/view/drawing_canvas/models/drawing_mode.dart';
+import 'package:draga/view/drawing_canvas/models/sketch.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class DrawingCanvas extends HookWidget {

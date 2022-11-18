@@ -8,12 +8,12 @@ import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dialog_manager/flutter_dialog_manager.dart';
-import 'package:flutter_drawing_board/main.dart';
-import 'package:flutter_drawing_board/view/constants.dart';
-import 'package:flutter_drawing_board/view/drawing_canvas/models/drawing_mode.dart';
-import 'package:flutter_drawing_board/view/drawing_canvas/models/sketch.dart';
-import 'package:flutter_drawing_board/view/drawing_canvas/widgets/color_palette.dart';
-import 'package:flutter_drawing_board/view/drawing_page.dart';
+import 'package:draga/main.dart';
+import 'package:draga/view/constants.dart';
+import 'package:draga/view/drawing_canvas/models/drawing_mode.dart';
+import 'package:draga/view/drawing_canvas/models/sketch.dart';
+import 'package:draga/view/drawing_canvas/widgets/color_palette.dart';
+import 'package:draga/view/drawing_page.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -290,25 +290,25 @@ class CanvasSideBar extends HookWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const Divider(),
-            Row(
+            Wrap(
               children: [
-                SizedBox(
-                  width: 140,
-                  child: TextButton(
-                    child: const Text('Export PNG'),
-                    onPressed: () async {
-                       await _export(context, 'png');
-                    },
-                  ),
+                TextButton(
+                  child: const Text('PNG'),
+                  onPressed: () async {
+                    await _export(context, 'png');
+                  },
                 ),
-                SizedBox(
-                  width: 140,
-                  child: TextButton(
-                    child: const Text('Export JPEG'),
-                    onPressed: () async {
-                     await _export(context, 'jpeg');
-                    },
-                  ),
+                TextButton(
+                  child: const Text('JPEG'),
+                  onPressed: () async {
+                    await _export(context, 'jpeg');
+                  },
+                ),
+                TextButton(
+                  child: const Text('Sketch Data'),
+                  onPressed: () async {
+                    await _export(context, 'jpeg');
+                  },
                 ),
               ],
             ),
@@ -329,14 +329,11 @@ class CanvasSideBar extends HookWidget {
     );
   }
 
-  Future<void> _export(BuildContext context, String extension)async{
-      void dismissDialog(){
-                    DialogManager.of(context).dismissDialog();
-                     }
-                      DialogManager.of(context).showDialog(routeName:kLoadingDialogRoute);
-                      Uint8List? pngBytes = await _getBytes();
-                      if (pngBytes != null) await _saveFile(pngBytes, extension);
-                      dismissDialog();
+  Future<void> _export(BuildContext context, String extension) async {
+    DialogManager.of(context).showDialog(routeName: kLoadingDialogRoute);
+    Uint8List? pngBytes = await _getBytes();
+    if (pngBytes != null) await _saveFile(pngBytes, extension);
+    DialogManager.of(context).dismissDialog();
   }
 
   Future<void> _saveFile(Uint8List bytes, String extension) async {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dialog_manager/flutter_dialog_manager.dart';
-import 'package:flutter_drawing_board/view/constants.dart';
-import 'package:flutter_drawing_board/view/drawing_page.dart';
-import 'package:flutter_drawing_board/view/downloading_dialog.dart';
+import 'package:draga/view/constants.dart';
+import 'package:draga/view/drawing_page.dart';
+import 'package:draga/view/downloading_dialog.dart';
 
 final _navigatorKey = GlobalKey<NavigatorState>();
 void main() {
@@ -19,13 +19,11 @@ class DragaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DialogManager(
       navigatorKey: _navigatorKey,
-       onGenerateDialog: (settings) {
-       
+      onGenerateDialog: (settings) {
         if (settings.name == kLoadingDialogRoute) {
           return const DownloadingDialog();
         }
         return null;
-       
       },
       child: MaterialApp(
         navigatorKey: _navigatorKey,

@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.2"
+  asn1lib:
+    dependency: transitive
+    description:
+      name: asn1lib
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.0"
   async:
     dependency: transitive
     description:
@@ -50,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
+  convert:
+    dependency: transitive
+    description:
+      name: convert
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.1"
   cross_file:
     dependency: transitive
     description:
@@ -64,6 +78,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
+  crypton:
+    dependency: transitive
+    description:
+      name: crypton
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   csslib:
     dependency: transitive
     description:
@@ -177,6 +198,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "10.2.1"
+  hashcodes:
+    dependency: transitive
+    description:
+      name: hashcodes
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   html:
     dependency: transitive
     description:
@@ -198,6 +226,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.2"
+  igodo:
+    dependency: transitive
+    description:
+      path: "."
+      ref: main
+      resolved-ref: a1b63af893ff772ad79670566f8b36deee5c811d
+      url: "git@github.com:Crazelu/igodo.git"
+    source: git
+    version: "0.0.1"
   image:
     dependency: "direct main"
     description:
@@ -240,6 +277,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.2"
+  image_size_getter:
+    dependency: transitive
+    description:
+      name: image_size_getter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.2"
   js:
     dependency: transitive
     description:
@@ -373,6 +417,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.3"
+  pointycastle:
+    dependency: transitive
+    description:
+      name: pointycastle
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.6.2"
   process:
     dependency: transitive
     description:
@@ -399,6 +450,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
+  steganograph:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: main
+      resolved-ref: "474a8b5be9ceabb9164e48f34c57905f7517aefb"
+      url: "git@github.com:Crazelu/steganograph.git"
+    source: git
+    version: "1.0.0"
   stream_channel:
     dependency: transitive
     description:
