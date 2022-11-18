@@ -263,20 +263,20 @@ class CanvasSideBar extends HookWidget {
                   child: const Text('Clear'),
                   onPressed: () => undoRedoStack.clear(),
                 ),
-                TextButton(
-                  onPressed: () async {
-                    if (backgroundImage.value != null) {
-                      backgroundImage.value = null;
-                    } else {
-                      backgroundImage.value = await _getImage;
-                    }
-                  },
-                  child: Text(
-                    backgroundImage.value == null
-                        ? 'Add Background'
-                        : 'Remove Background',
-                  ),
-                ),
+                // TextButton(
+                //   onPressed: () async {
+                //     if (backgroundImage.value != null) {
+                //       backgroundImage.value = null;
+                //     } else {
+                //       backgroundImage.value = await _getImage;
+                //     }
+                //   },
+                //   child: Text(
+                //     backgroundImage.value == null
+                //         ? 'Add Background'
+                //         : 'Remove Background',
+                //   ),
+                // ),
                 TextButton(
                   child: const Text('Fork on Github'),
                   onPressed: () => _launchUrl(kGithubRepo),

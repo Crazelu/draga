@@ -1,1 +1,1 @@
-const int kDefaultPageCount = 4;
+const int kDefaultPageCount = 8;
