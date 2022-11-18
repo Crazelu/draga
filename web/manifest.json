@@ -1,11 +1,11 @@
 {
-    "name": "Let's Draw",
-    "short_name": "Lets Draw",
+    "name": "Draga",
+    "short_name": "Draga",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A simple drawing app made with Flutter",
+    "description": "A collaborative multi-canvas drawing board",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

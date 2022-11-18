@@ -1,4 +1,4 @@
-package com.jideguru.flutter_drawing_board
+package com.draga.board
 
 import io.flutter.embedding.android.FlutterActivity
 
