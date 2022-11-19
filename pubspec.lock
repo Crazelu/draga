@@ -229,12 +229,10 @@ packages:
   igodo:
     dependency: transitive
     description:
-      path: "."
-      ref: main
-      resolved-ref: a1b63af893ff772ad79670566f8b36deee5c811d
-      url: "git@github.com:Crazelu/igodo.git"
-    source: git
-    version: "0.0.1"
+      name: igodo
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   image:
     dependency: "direct main"
     description:
@@ -453,11 +451,9 @@ packages:
   steganograph:
     dependency: "direct main"
     description:
-      path: "."
-      ref: main
-      resolved-ref: "4bc3e7536fcb17d31e68f6b2420d68e39e831225"
-      url: "git@github.com:Crazelu/steganograph.git"
-    source: git
+      name: steganograph
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0"
   stream_channel:
     dependency: transitive
