@@ -16,11 +16,11 @@ You can find more details [here](https://github.com/JideGuru/flutter_drawing_boa
 - [x] Export as Image
 - [x] Multi-paged Canvas
 - [x] Panning Across Canvas
+- [x] Export & Import Canvas Options
 - [ ] Collaborative Drawing
 - [ ] Text Support
 - [ ] Highlight to Group & Select
 - [ ] Move Selected Sketches
-- [ ] Export & Import Canvas Options
 - [ ] Endless Canvas
 
 ## Contributions 🫱🏾‍🫲🏼
