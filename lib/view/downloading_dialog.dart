@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dialog_manager/flutter_dialog_manager.dart';
 import 'package:lottie/lottie.dart';
 
-class DownloadingDialog extends StatelessWidget {
+class LoadingDialog extends StatelessWidget {
   final bool flipAnimation;
 
-  const DownloadingDialog({
+  const LoadingDialog({
     Key? key,
     this.flipAnimation = false,
   }) : super(key: key);
