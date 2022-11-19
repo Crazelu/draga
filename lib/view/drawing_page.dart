@@ -206,7 +206,7 @@ class _DrawingPageState extends State<DrawingPage> {
   @override
   Widget build(BuildContext context) {
     final selectedColor = useState(Colors.black);
-    final strokeSize = useState<double>(10);
+    final strokeSize = useState<double>(3);
     final eraserSize = useState<double>(30);
     final drawingMode = useState(DrawingMode.pencil);
     final imageRowCount = useState(kDefaultPageCount);

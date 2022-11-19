@@ -73,7 +73,7 @@ class CanvasSideBar extends HookWidget {
     final embedSketchData = useState(false);
     return Container(
       width: 300,
-      height: MediaQuery.of(context).size.height < 680 ? 450 : 610,
+      height: MediaQuery.of(context).size.height < 680 ? 520 : 650,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.horizontal(right: Radius.circular(10)),
