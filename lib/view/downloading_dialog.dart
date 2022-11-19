@@ -3,8 +3,12 @@ import 'package:flutter_dialog_manager/flutter_dialog_manager.dart';
 import 'package:lottie/lottie.dart';
 
 class DownloadingDialog extends StatelessWidget {
+  final bool flipAnimation;
 
-  const DownloadingDialog({Key? key}) : super(key: key);
+  const DownloadingDialog({
+    Key? key,
+    this.flipAnimation = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,7 @@ class DownloadingDialog extends StatelessWidget {
       builder: (dialogKey) {
         return Container(
           key: dialogKey,
-          height: 150,
+          height: 180,
           width: 180,
           padding: const EdgeInsets.symmetric(
             vertical: 10,
@@ -26,15 +30,21 @@ class DownloadingDialog extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              LottieBuilder.asset(
-                "assets/animations/downloading.json",
-                height: 120,
-                width: 120,
-                animate: true,
-                reverse: true,
-                repeat: true,
+              RotatedBox(
+                quarterTurns: flipAnimation ? 2 : 0,
+                child: LottieBuilder.asset(
+                  "assets/animations/downloading.json",
+                  height: 80,
+                  width: 120,
+                  animate: true,
+                  reverse: true,
+                  repeat: true,
+                ),
               ),
-             
+              Text(
+                flipAnimation ? "Importing" : "Exporting",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             ],
           ),
         );

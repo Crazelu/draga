@@ -21,7 +21,9 @@ class DragaApp extends StatelessWidget {
       navigatorKey: _navigatorKey,
       onGenerateDialog: (settings) {
         if (settings.name == kLoadingDialogRoute) {
-          return const DownloadingDialog();
+          return DownloadingDialog(
+            flipAnimation: settings.arguments as bool? ?? false,
+          );
         }
         return null;
       },

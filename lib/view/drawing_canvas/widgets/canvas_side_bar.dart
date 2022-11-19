@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' as ui;
 import 'package:file_picker/file_picker.dart';
@@ -17,6 +20,7 @@ import 'package:draga/view/drawing_page.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:steganograph/steganograph.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:image/image.dart' as im;
@@ -66,6 +70,7 @@ class CanvasSideBar extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final scrollController = useScrollController();
+    final embedSketchData = useState(false);
     return Container(
       width: 300,
       height: MediaQuery.of(context).size.height < 680 ? 450 : 610,
@@ -291,29 +296,94 @@ class CanvasSideBar extends HookWidget {
             ),
             const Divider(),
             Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 TextButton(
                   child: const Text('PNG'),
                   onPressed: () async {
-                    await _export(context, 'png');
+                    if (embedSketchData.value) {
+                      await _exportSketchData(context, allSketches.value);
+                    } else {
+                      await _export(context, 'png');
+                    }
                   },
                 ),
                 TextButton(
+                  onPressed: embedSketchData.value
+                      ? null
+                      : () async {
+                          await _export(context, 'jpeg');
+                        },
                   child: const Text('JPEG'),
-                  onPressed: () async {
-                    await _export(context, 'jpeg');
-                  },
                 ),
-                TextButton(
-                  child: const Text('Sketch Data'),
-                  onPressed: () async {
-                    await _export(context, 'jpeg');
-                  },
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _CustomCheckBox(
+                        active: embedSketchData.value,
+                        onTap: () {
+                          embedSketchData.value = !embedSketchData.value;
+                        }),
+                    const SizedBox(width: 4),
+                    const Text(
+                      'Embed Sketch Data',
+                      style: TextStyle(fontSize: 14, color: Colors.blue),
+                    ),
+                    const SizedBox(width: 2),
+                    Tooltip(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(.9),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      message: kEmbedSketchDataTooltip,
+                      child: const Icon(
+                        Icons.help_outline,
+                        size: 14,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
             // add about me button or follow buttons
             const Divider(),
+            const SizedBox(height: 8),
+            InkWell(
+              onTap: () async {
+                DialogManager.of(context).showDialog(
+                  routeName: kLoadingDialogRoute,
+                  arguments: true,
+                );
+                final sketches = await _getSketchData();
+                allSketches.value = sketches;
+                if (sketches.isNotEmpty) {
+                  currentSketch.value = sketches.last;
+                }
+                DialogManager.of(context).dismissDialog();
+              },
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.upload_file,
+                    size: 14,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(width: 4),
+                  Text(
+                    'Import Sketch Data',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.blue,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
             Center(
               child: InkWell(
                 onTap: () => _launchUrl('https://github.com/Crazelu'),
@@ -329,6 +399,32 @@ class CanvasSideBar extends HookWidget {
     );
   }
 
+  Future<List<Sketch>> _getSketchData() async {
+    try {
+      final bytes = await _getImageBytes;
+
+      if (bytes != null) {
+        final data = await Steganograph.decodeBytes(bytes: bytes);
+        return List<Sketch>.from(
+            jsonDecode(data!).map((e) => Sketch.fromJson(e)));
+      }
+    } catch (e) {
+      //
+    }
+    return [];
+  }
+
+  Future<void> _exportSketchData(
+    BuildContext context,
+    List<Sketch> sketches,
+  ) async {
+    DialogManager.of(context).showDialog(routeName: kLoadingDialogRoute);
+    Uint8List? pngBytes = await _getBytes();
+    if (pngBytes != null) pngBytes = await _embedSketchData(pngBytes, sketches);
+    if (pngBytes != null) await _saveFile(pngBytes, 'png');
+    DialogManager.of(context).dismissDialog();
+  }
+
   Future<void> _export(BuildContext context, String extension) async {
     DialogManager.of(context).showDialog(routeName: kLoadingDialogRoute);
     Uint8List? pngBytes = await _getBytes();
@@ -338,19 +434,34 @@ class CanvasSideBar extends HookWidget {
 
   Future<void> _saveFile(Uint8List bytes, String extension) async {
     if (kIsWeb) {
+      var blob = html.Blob([bytes], 'image/$extension');
       html.AnchorElement()
-        ..href = '${Uri.dataFromBytes(bytes, mimeType: 'image/$extension')}'
+        ..href = html.Url.createObjectUrlFromBlob(blob).toString()
         ..download =
-            'FlutterLetsDraw-${DateTime.now().toIso8601String()}.$extension'
+            'Draga-${DateTime.now().toIso8601String().replaceAll(RegExp(r':'), '-')}.$extension'
         ..style.display = 'none'
         ..click();
     } else {
       await FileSaver.instance.saveFile(
-        'FlutterLetsDraw-${DateTime.now().toIso8601String()}.$extension',
+        'Draga-${DateTime.now().toIso8601String().replaceAll(RegExp(r':'), '-')}',
         bytes,
         extension,
         mimeType: extension == 'png' ? MimeType.PNG : MimeType.JPEG,
       );
+    }
+  }
+
+  Future<Uint8List?> _embedSketchData(
+    Uint8List bytes,
+    List<Sketch> sketches,
+  ) async {
+    try {
+      return await Steganograph.encodeBytes(
+        bytes: bytes,
+        message: jsonEncode(sketches),
+      );
+    } catch (e) {
+      return null;
     }
   }
 
@@ -516,6 +627,61 @@ class _IconBox extends StatelessWidget {
               color: selected ? Colors.grey[900] : Colors.grey,
               size: 20,
             ),
+      ),
+    );
+  }
+}
+
+class _CustomCheckBox extends StatelessWidget {
+  final bool active;
+  final VoidCallback onTap;
+  final double size;
+  final double iconSize;
+
+  const _CustomCheckBox({
+    Key? key,
+    required this.active,
+    required this.onTap,
+    this.size = 16,
+    this.iconSize = 12,
+  }) : super(key: key);
+
+  BorderSide get _borderSide {
+    return const BorderSide(
+      width: 2,
+      color: Colors.blue,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        alignment: Alignment.center,
+        height: size,
+        width: size,
+        decoration: BoxDecoration(
+          color: active ? Colors.blue.withOpacity(.2) : Colors.white,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(5),
+          border: Border(
+            bottom: _borderSide,
+            top: _borderSide,
+            left: _borderSide,
+            right: _borderSide,
+          ),
+        ),
+        child: active
+            ? Align(
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.check,
+                  size: iconSize,
+                  color: Colors.blue,
+                ),
+              )
+            : null,
       ),
     );
   }

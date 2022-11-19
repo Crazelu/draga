@@ -455,7 +455,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "474a8b5be9ceabb9164e48f34c57905f7517aefb"
+      resolved-ref: "4bc3e7536fcb17d31e68f6b2420d68e39e831225"
       url: "git@github.com:Crazelu/steganograph.git"
     source: git
     version: "1.0.0"
